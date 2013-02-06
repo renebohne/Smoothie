@@ -49,9 +49,9 @@ void CurrentControl::on_gcode_received(void *argument)
             {
                 if (gcode->has_letter(alpha[i]))
                 {
-                    //this->kernel->digipot->set_current(i, gcode->get_value(alpha[i]));
+                    this->digipot->set_current(i, gcode->get_value(alpha[i]));
                 }
-                //gcode->stream->printf("%c:%3.1fA%c", alpha[i], this->kernel->digipot->get_current(i), (i == 3)?'\n':' ');
+                gcode->stream->printf("%c:%3.1fA%c", alpha[i], this->digipot->get_current(i), (i == 3)?'\n':' ');
                 
             }
         }
