@@ -5,10 +5,15 @@
 
 #include "Gcode.h"
 
+#include "libs/Digipot.h"
+
 #include <string>
 using namespace std;
 
-CurrentControl::CurrentControl(){}
+CurrentControl::CurrentControl(){
+
+
+}
 
 void CurrentControl::on_module_loaded(){
     if( !this->kernel->config->value( currentcontrol_module_enable_checksum )->by_default(false)->as_bool() ){ return; }
@@ -19,11 +24,14 @@ void CurrentControl::on_module_loaded(){
     this->gamma_current =           this->kernel->config->value(gamma_current_checksum  )->by_default(0.8)->as_number();
     this->delta_current =           this->kernel->config->value(delta_current_checksum  )->by_default(0.8)->as_number();
 
-    //this->kernel->digipot->set_current(0, this->alpha_current);
-    //this->kernel->digipot->set_current(1, this->beta_current );
-    //this->kernel->digipot->set_current(2, this->gamma_current);
-    //this->kernel->digipot->set_current(3, this->delta_current);
+    this->digipot = new Digipot();
 
+    this->digipot->set_current(0, this->alpha_current);
+    this->digipot->set_current(1, this->beta_current );
+    this->digipot->set_current(2, this->gamma_current);
+    this->digipot->set_current(3, this->delta_current);
+
+    
     this->register_for_event(ON_GCODE_RECEIVED);
 }
 
