@@ -57,7 +57,7 @@ Kernel::Kernel(){
     }
      */
     //use mbed usb serial port
-    this->serial         = new SerialConsole(USBTX, USBRX, this->config->value(uart0_checksum,baud_rate_setting_checksum)->by_default(9600)->as_number());
+    this->serial         = new SerialConsole(USBTX, USBRX, this->config->value(uart0_checksum,baud_rate_setting_checksum)->by_default(115200)->as_number());
     
     this->add_module( this->config );
 
